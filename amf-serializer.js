@@ -3,7 +3,8 @@
 @author kaosat-dev
 */
 var detectEnv = require("composite-detect");
-var XMLWriter = require('xml-writer');
+if(detectEnv.isModule) var XMLWriter = require('xml-writer');
+if(detectEnv.isModule) var JSZip = require( 'jszip' );
 
 
 AMFSerializer = function()
@@ -16,8 +17,17 @@ AMFSerializer = function()
 AMFSerializer.prototype = {
   constructor: AMFSerializer,
 
-  serialize: function( rootElement, type ){
-    return this.exportHierarchy (rootElement);
+  serialize: function( rootElement, compress, fileName ){
+    var compress = compress || false ;
+    var amfContent = this.exportHierarchy (rootElement);
+    if(compress){
+      var zipped = new JSZip();
+      zipped = zipped.file(fileName, amfContent);
+      var outputType = "base64";
+      if(detectEnv.isModule) outputType = "nodebuffer";
+      amfContent = zipped.generate({type: outputType});
+    }
+    return amfContent;
   },
 
 	exportHierarchy : function (hierarchy) {

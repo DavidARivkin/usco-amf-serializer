@@ -1,7 +1,7 @@
-THREE = require("three");
-AMFSerializer = require("../amf-serializer_2");
-fs = require("fs");
-
+var THREE = require("three");
+var AMFSerializer = require("../amf-serializer");
+var fs = require("fs");
+var getZippedContent = require('./getZippedContent');
 
 describe("AMF serializer tests", function() {
   var serializer = new AMFSerializer();
@@ -10,8 +10,17 @@ describe("AMF serializer tests", function() {
     var object = new THREE.Mesh(new THREE.CubeGeometry(10,10,10),new THREE.MeshBasicMaterial);
 
     var obsGeneratedAMF = serializer.serialize(object);
-    fs.writeFileSync("specs/data/cube.amf",obsGeneratedAMF);
+    //fs.writeFileSync("specs/data/cube.amf",obsGeneratedAMF);
     var expGeneratedAMF = fs.readFileSync("specs/data/cube.amf", "utf8")
+    expect(obsGeneratedAMF).toEqual(expGeneratedAMF);
+  });
+
+  it("can serialize to compressed amf files", function() {
+    var object = new THREE.Mesh(new THREE.CubeGeometry(10,10,10),new THREE.MeshBasicMaterial);
+
+    var obsGeneratedAMF = getZippedContent( serializer.serialize(object,true, "cube.amf") );
+    var expGeneratedAMF = getZippedContent( fs.readFileSync("specs/data/cube_zipped.amf", "binary") );
+
     expect(obsGeneratedAMF).toEqual(expGeneratedAMF);
   });
 
