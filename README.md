@@ -14,4 +14,15 @@ How to generate browser/polymer.js version (with require support):
 ------------------------------------------------------------------
 Type: 
 
-browserify amf-serializer.js -r ./amf-serializer.js:amf-serializer -o lib/amf-serializer.js -x q -x jszip -x composite-detect -i three
+    browserify amf-serializer.js -r ./amf-serializer.js:amf-serializer -o lib/amf-serializer.js -x q -x jszip -x composite-detect -x three
+
+then replace (manually for now) all following entries in the generated file:
+
+  "composite-detect":"awZPbp","jszip":"5BB7bb","three":"Wor+Zu"
+
+with the correct module names, ie:
+
+   "composite-detect":"composite-detect","jszip":"jszip","three":"three"
+
+
+
