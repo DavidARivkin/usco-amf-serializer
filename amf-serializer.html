@@ -1,14 +1,14 @@
 <link rel="import" href="../polymer/polymer.html">
 <script src="lib/amf-serializer.js"></script>
 
-<polymer-element name="amf-serializer" attributes="unit origin">
+<polymer-element name="amf-serializer" attributes="unit origin" extends="usco-serializer-base">
   <script>
     Polymer("amf-serializer",{
       unit:"milimeter",
       origin:"usco",
-      serializer : null,
       created:function()
       { 
+        this.super();
         AMFSerializer = require( "amf-serializer" );
         this.serializer = new AMFSerializer(this.unit, this.origin);
       },
