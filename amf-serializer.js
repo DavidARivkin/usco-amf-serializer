@@ -4,7 +4,8 @@
 var detectEnv = require("composite-detect");
 if(detectEnv.isModule) var XMLWriter = require('xml-writer');
 if(detectEnv.isModule) var JSZip = require( 'jszip' );
-if(detectEnv.isModule) var THREE = require("three");
+if(detectEnv.isNode) var THREE = require("three");
+if(detectEnv.isBrowser) var THREE = window.THREE;
 
 
 AMFSerializer = function(unit, origin)
