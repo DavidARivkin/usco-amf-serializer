@@ -6,16 +6,20 @@
     "type": "git",
     "url": "http://github.com/usco/usco-amf-serializer.git"
   },
-  "main": "STLSerializer.js",
+  "main": "amf-serializer.js",
   "dependencies": {
     "simple-xml-writer": "0.0.2",
     "xml-writer": "~1.4.1",
-    "jszip": "~2.1.1"
+    "jszip": "~2.1.1",
+    "three-js": "git://github.com/usco/three.js.git",
+    "composite-detect": "0.0.3"
   },
   "devDependencies": {
     "jasmine-node": "",
-    "three-js": "git://github.com/usco/three.js.git",
-    "composite-detect": "0.0.3"
+    "grunt": "~0.4.2",
+    "grunt-browserify": "~1.2.12",
+    "workerify": "~0.2.3",
+    "grunt-bump": "0.0.13"
   },
   "scripts": {
     "test": "jasmine-node specs/"
